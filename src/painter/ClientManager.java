@@ -53,9 +53,8 @@ public class ClientManager {
         paint.clientManager = this;
         threadConnection = new Thread(connectToServer);
     }
-    
-    public String getClientName()
-    {
+
+    public String getClientName() {
         return "Client board: " + this.client_LAN_name;
     }
 
@@ -180,7 +179,8 @@ public class ClientManager {
                     //occures if no dragging; but press then release.
                     paint.setPointData((PointData) obj);
                 } else if (obj instanceof ArrayList<?>) {
-                    if (((ArrayList<?>) obj).get(0) instanceof CurveData) {
+                    if (((ArrayList<Object>) obj).get(0) instanceof CurveData
+                            || (((ArrayList<Object>) obj).get(0) instanceof PointData)) {
                         paint.set_initial_list_drawData((ArrayList<Object>) obj);
                     }
                 } else if (obj instanceof DrawData_forRedo) {
