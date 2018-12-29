@@ -175,10 +175,18 @@ public class ClientManager {
                 } else if (obj instanceof Color) {
                     paint.setBackground((Color) obj);
                 } else if (obj instanceof PointData) {
-                    //happen on mouse relased on server
-                    //occures if no dragging; but press then release.
+                    /**
+                     * This conditional block is invoked on mouse-release on the
+                     * server app, that is if no dragging; but mouse-press followed by
+                     * mouse-release.
+                     */
                     paint.setPointData((PointData) obj);
+
                 } else if (obj instanceof ArrayList<?>) {
+                    /**
+                     * This conditional block is invoked if the server app has
+                     * pre-made drawings when the the client app is launched.
+                     */
                     if (((ArrayList<Object>) obj).get(0) instanceof CurveData
                             || (((ArrayList<Object>) obj).get(0) instanceof PointData)) {
                         paint.set_initial_list_drawData((ArrayList<Object>) obj);
