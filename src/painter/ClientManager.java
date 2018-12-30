@@ -55,7 +55,7 @@ public class ClientManager {
     }
 
     public String getClientName() {
-        return "Client board: " + this.client_LAN_name;
+        return "Student board: " + this.client_LAN_name;
     }
 
     private void set_fullAddressName() {
