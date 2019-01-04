@@ -17,9 +17,9 @@ public class PointData implements Serializable {
 
     private static final long serialVersionUID = 34705201206374L;
 
-
     private float diameter;
     private Color color;
+    private boolean eraser;
     private Point point;
 
     public PointData(Point point) {
@@ -48,6 +48,10 @@ public class PointData implements Serializable {
 
     public void setPoint(Point point) {
         this.point = point;
+    }
+
+    public boolean isEraser() {
+        return eraser;
     }
 
 }

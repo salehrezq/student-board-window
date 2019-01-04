@@ -100,7 +100,10 @@ public class Painter extends JPanel {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g.create();
-        for (Object drawObj : drawObjects) {
+
+        int length = drawObjects.size();
+        for (int i = 0; i < length; i++) {
+            Object drawObj = drawObjects.get(i);
             if (drawObj instanceof CurveData) {
                 drawCurve(g2, (CurveData) drawObj);
             } else if (drawObj instanceof PointData) {
@@ -112,7 +115,12 @@ public class Painter extends JPanel {
 
     private void drawCurve(Graphics2D g2, CurveData curve) {
 
-        g2.setColor(curve.getColor());
+        if (curve.isEraser()) {
+            g2.setColor(getBackground());
+        } else {
+            g2.setColor(curve.getColor());
+        }
+
         g2.setStroke(getStroke(curve.getStroke()));
 
         for (int i = 1; i < curve.getPointsList().size(); i++) {
@@ -127,7 +135,11 @@ public class Painter extends JPanel {
 
     private void drawPoint(Graphics2D g2, PointData point) {
 
-        g2.setColor(point.getColor());
+        if (point.isEraser()) {
+            g2.setColor(getBackground());
+        } else {
+            g2.setColor(point.getColor());
+        }
 
         int diameter = (int) point.getDiameter() + 3;
         int x = point.getPoint().x - diameter / 2;

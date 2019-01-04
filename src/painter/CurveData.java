@@ -20,9 +20,9 @@ public class CurveData implements Serializable {
 
      private static final long serialVersionUID = 83204520674491L;
 
-
     private Color color;
     private float stroke;
+    private boolean eraser;
     private ArrayList<Point> pointsList;
 
     public Color getColor() {
@@ -35,6 +35,10 @@ public class CurveData implements Serializable {
 
     public ArrayList<Point> getPointsList() {
         return pointsList;
+    }
+
+    public boolean isEraser() {
+        return eraser;
     }
 
 }
