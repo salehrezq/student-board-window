@@ -50,12 +50,12 @@ public class ClientManager {
         set_fullAddressName();
         paint = new Painter();
         paint.createPainterGUI(paint);
-        paint.clientManager = this;
+        paint.setClientManager(this);
         threadConnection = new Thread(connectToServer);
     }
 
     public String getClientName() {
-        return "Student board: " + this.client_LAN_name;
+        return this.client_LAN_name;
     }
 
     private void set_fullAddressName() {
@@ -125,7 +125,7 @@ public class ClientManager {
     }
 
     private void sendToServer_myClientAddress() {
-        writeObject("address" + client_LAN_name);
+        writeObject("address" + this.getClientName());
     }
 
     private String[] extract_clientAddress_segments(String fullAddress) {
@@ -228,21 +228,29 @@ public class ClientManager {
     }
 
     public void notifyServer_clientExit() {
-        writeObject("ClientClose");
+
+        StateInfo stateClosed = new StateInfo("ClientClose", false, this.getClientName());
+        writeObject(stateClosed);
         allowReceivingThread(false);
     }
 
     public void notifyServer_client_upfront_down(boolean state) {
-        writeObject("isUpFront" + state);
+
+        StateInfo stateUpFront = new StateInfo("isUpFront", state, this.getClientName());
+        writeObject(stateUpFront);
     }
 
     // Serves both Active and Focus state.
     public void notifyServer_client_active_state(boolean state) {
-        writeObject("isActive" + state);
+
+        StateInfo stateActive = new StateInfo("isActive", state, this.getClientName());
+        writeObject(stateActive);
     }
 
     public void notifyServer_client_screen_state(boolean state) {
-        writeObject("isFullscreen" + state);
+
+        StateInfo stateFullScreen = new StateInfo("isFullScreen", state, this.getClientName());
+        writeObject(stateFullScreen);
     }
 
     private void writeObject(Object obj) {

@@ -27,6 +27,8 @@ public class PainterWSL extends WindowAdapter {
     //
     boolean fullScreenOld;
 
+    private ClientManager clientManager;
+
     PainterWSL(Painter painter) {
         counter = 0;
         active_focus_state = new ArrayList();
@@ -38,24 +40,25 @@ public class PainterWSL extends WindowAdapter {
         fullScreenOld = false;
         //
         this.painter = painter;
+        clientManager = painter.getClientManager();
     }
 
     @Override
     public void windowClosing(WindowEvent e) {
-        painter.clientManager.notifyServer_clientExit();
+        clientManager.notifyServer_clientExit();
     }
 
     @Override
     public void windowIconified(WindowEvent e) {
         upfront = false;
-        painter.clientManager.notifyServer_client_upfront_down(upfront);
+        clientManager.notifyServer_client_upfront_down(upfront);
         //send upfront
     }
 
     @Override
     public void windowDeiconified(WindowEvent e) {
         upfront = true;
-        painter.clientManager.notifyServer_client_upfront_down(upfront);
+        clientManager.notifyServer_client_upfront_down(upfront);
 
         //send upfront
     }
@@ -99,7 +102,7 @@ public class PainterWSL extends WindowAdapter {
             counter = 0;
 
             active = calculatedState;
-            painter.clientManager.notifyServer_client_active_state(active);
+            clientManager.notifyServer_client_active_state(active);
             //send active state
         }
     }
@@ -113,7 +116,7 @@ public class PainterWSL extends WindowAdapter {
 
             if (state != fullScreenOld) {
                 fullScreenOld = state;
-                painter.clientManager.notifyServer_client_screen_state(state);
+                clientManager.notifyServer_client_screen_state(state);
             }
         }
     }

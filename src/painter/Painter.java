@@ -25,7 +25,7 @@ import javax.swing.event.DocumentListener;
 
 public class Painter extends JPanel {
 
-    ClientManager clientManager; // Set at ClientManager creation
+    private ClientManager clientManager; // Set at ClientManager creation
     int height;
     int width;
 
@@ -265,6 +265,15 @@ public class Painter extends JPanel {
             btn_connect_toServer.setText(state);
         }
     }
+
+    public ClientManager getClientManager() {
+        return this.clientManager;
+    }
+
+    public void setClientManager(ClientManager clientManager) {
+        this.clientManager = clientManager;
+    }
+
 
     public void createPainterGUI(Painter painter) {
         SwingUtilities.invokeLater(new Runnable() {
